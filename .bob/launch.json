@@ -1,0 +1,149 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        // --- PHP/LARAVEL DEBUGGING (AdminPortal) ---
+        {
+            "name": "Listen for Xdebug (AdminPortal)",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            "pathMappings": {
+                "/var/app/Tradexpro-AdminPortal": "${workspaceFolder}/Tradexpro-AdminPortal"
+            },
+            "log": true
+        },
+        {
+            "name": "Launch Laravel Artisan",
+            "type": "php",
+            "request": "launch",
+            "program": "${workspaceFolder}/Tradexpro-AdminPortal/artisan",
+            "cwd": "${workspaceFolder}/Tradexpro-AdminPortal",
+            "args": [
+                "serve",
+                "--host=0.0.0.0"
+            ],
+            "runtimeArgs": [
+                "-dxdebug.mode=debug",
+                "-dxdebug.start_with_request=yes"
+            ],
+            "env": {
+                "XDEBUG_MODE": "debug,develop",
+                "XDEBUG_CONFIG": "client_port=9003"
+            }
+        },
+        {
+            "name": "PHPUnit Tests (AdminPortal)",
+            "type": "php",
+            "request": "launch",
+            "program": "${workspaceFolder}/Tradexpro-AdminPortal/vendor/bin/phpunit",
+            "cwd": "${workspaceFolder}/Tradexpro-AdminPortal",
+            "args": [
+                "--configuration",
+                "phpunit.xml"
+            ]
+        },
+
+        // --- NODE.JS DEBUGGING (UserPortal) ---
+        {
+            "name": "Next.js: debug server-side (UserPortal)",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "npm run dev",
+            "cwd": "${workspaceFolder}/Tradexpro-UserPortal",
+            "serverReadyAction": {
+                "pattern": "started server on .+, url: (https?://.+)",
+                "uriFormat": "%s",
+                "action": "debugWithChrome"
+            }
+        },
+        {
+            "name": "Next.js: debug client-side (UserPortal)",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/Tradexpro-UserPortal",
+            "sourceMapPathOverrides": {
+                "webpack://_N_E/*": "${webRoot}/*"
+            }
+        },
+        {
+            "name": "Next.js: debug full stack (UserPortal)",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "npm run dev",
+            "cwd": "${workspaceFolder}/Tradexpro-UserPortal",
+            "console": "integratedTerminal",
+            "serverReadyAction": {
+                "pattern": "started server on .+, url: (https?://.+)",
+                "uriFormat": "%s",
+                "action": "debugWithChrome"
+            }
+        },
+
+        // --- NODE.JS DEBUGGING (NodeWallet) ---
+        {
+            "name": "Node Wallet Service",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/Tradexpro-NodeWallet/index.js",
+            "cwd": "${workspaceFolder}/Tradexpro-NodeWallet",
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "console": "integratedTerminal",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "name": "Node Wallet Service (with nodemon)",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "nodemon",
+            "program": "${workspaceFolder}/Tradexpro-NodeWallet/index.js",
+            "cwd": "${workspaceFolder}/Tradexpro-NodeWallet",
+            "restart": true,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+
+        // --- ATTACH TO RUNNING PROCESS ---
+        {
+            "name": "Attach to Node Process",
+            "type": "node",
+            "request": "attach",
+            "port": 9229,
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+
+        // --- DOCKER DEBUGGING ---
+        {
+            "name": "Docker: Attach to Node (Wallet)",
+            "type": "node",
+            "request": "attach",
+            "port": 9229,
+            "address": "localhost",
+            "localRoot": "${workspaceFolder}/Tradexpro-NodeWallet",
+            "remoteRoot": "/app",
+            "protocol": "inspector"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Full Stack Debug",
+            "configurations": [
+                "Listen for Xdebug (AdminPortal)",
+                "Next.js: debug server-side (UserPortal)",
+                "Node Wallet Service"
+            ],
+            "stopAll": true
+        }
+    ]
+}
+
+// Made with Bob

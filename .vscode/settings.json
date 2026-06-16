@@ -1,0 +1,167 @@
+{
+    // --- CẤU HÌNH HỆ THỐNG IBM BOB ---
+    "bob-shell.debug.logging.enabled": true,
+    // --- TỰ ĐỘNG HÓA & ĐỊNH DẠNG CODE (Chuẩn DevOps) ---
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+        "source.fixAll.eslint": "explicit"
+    },
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    // --- QUẢN LÝ GIT ---
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    // --- GIAO DIỆN & TERMINAL TỐI ƯU ---
+    "terminal.integrated.scrollback": 10000,
+    "editor.minimap.enabled": false,
+    "editor.suggestSelection": "first",
+    "breadcrumbs.enabled": true,
+    // --- TRADEXPRO PROJECT SPECIFIC ---
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/vendor": true,
+        "**/.git": true,
+        "**/storage/framework/cache": true,
+        "**/storage/framework/sessions": true,
+        "**/storage/framework/views": true,
+        "**/.next": true,
+        "**/dist": true,
+        "**/build": true
+    },
+    // --- PHP SETTINGS (Laravel AdminPortal) ---
+    "[php]": {
+        "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true
+    },
+    "php.suggest.basic": false,
+    "intelephense.files.exclude": [
+        "**/.git/**",
+        "**/.svn/**",
+        "**/.hg/**",
+        "**/CVS/**",
+        "**/.DS_Store/**",
+        "**/node_modules/**",
+        "**/bower_components/**",
+        "**/vendor/**/{Tests,tests}/**"
+    ],
+    // --- JAVASCRIPT/TYPESCRIPT SETTINGS (UserPortal) ---
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2
+    },
+    // --- CSS/SCSS SETTINGS ---
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2
+    },
+    // --- MARKDOWN SETTINGS ---
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.wordWrap": "on",
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "strings": "off",
+            "other": "off"
+        }
+    },
+    // --- ESLINT SETTINGS ---
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "eslint.workingDirectories": [
+        "./Tradexpro-UserPortal",
+        "./Tradexpro-NodeWallet"
+    ],
+    // --- PRETTIER SETTINGS ---
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "es5",
+    "prettier.semi": true,
+    "prettier.tabWidth": 2,
+    "prettier.printWidth": 100,
+    // --- SEARCH SETTINGS ---
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/vendor": true,
+        "**/bower_components": true,
+        "**/.next": true,
+        "**/dist": true,
+        "**/build": true,
+        "**/storage/framework": true,
+        "**/storage/logs": true,
+        "**/.git": true
+    },
+    // --- FILE ASSOCIATIONS ---
+    "files.associations": {
+        "*.blade.php": "blade",
+        ".env.example": "dotenv",
+        ".env.local": "dotenv",
+        "*.config.js": "javascript"
+    },
+    // --- EMMET SETTINGS ---
+    "emmet.includeLanguages": {
+        "blade": "html",
+        "javascript": "javascriptreact",
+        "typescript": "typescriptreact"
+    },
+    // --- EDITOR SETTINGS ---
+    "editor.fontSize": 14,
+    "editor.lineHeight": 22,
+    "editor.fontFamily": "'Fira Code', 'Cascadia Code', 'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.smoothScrolling": true,
+    "editor.renderWhitespace": "boundary",
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "editor.wordWrap": "off",
+    "editor.linkedEditing": true,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    // --- WORKBENCH SETTINGS ---
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.startupEditor": "none",
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.closeOnFileDelete": true,
+    // --- EXPLORER SETTINGS ---
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.compactFolders": false,
+    // --- SECURITY ---
+    "security.workspace.trust.untrustedFiles": "open",
+    // --- EXTENSIONS RECOMMENDATIONS ---
+    "extensions.ignoreRecommendations": false
+}
+// Made with Bob

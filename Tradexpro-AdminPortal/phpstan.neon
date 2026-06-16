@@ -1,0 +1,17 @@
+
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+  level: 7
+  paths:
+    - app
+  stubFiles:
+    - stubs/phpstan/translation.stub
+  ignoreErrors:
+    - '#Constant IS_API_CALL not found#'
+    - '#Call to an undefined static method App\\Model\\[a-zA-Z0-9\\]+::[a-zA-Z0-9]+\(\)#'
+    - '#Call to an undefined method Illuminate\\#'
+    - '#Access to an undefined property App\\Http\\Requests#'
+    #- '#Access to an undefined property App\\Model'
+    #- '#Access to an undefined property Illuminate\\Http\\Request'

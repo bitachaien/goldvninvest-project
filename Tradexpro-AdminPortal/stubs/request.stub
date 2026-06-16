@@ -1,0 +1,50 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Facades\ResponseFacade;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+
+class {{ class }} extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return false;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            //
+        ];
+    }
+
+        /**
+     * Return validation error custom message
+     * @return array<string, mixed>
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
+
+    protected function failedValidation(Validator $validator)
+    {
+        $error = $validator->errors()->all()[0];
+        ResponseFacade::failed($error)->throw();
+    }
+}
