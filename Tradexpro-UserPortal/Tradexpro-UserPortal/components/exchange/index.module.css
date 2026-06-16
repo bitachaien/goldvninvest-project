@@ -1,0 +1,14 @@
+.VersionHeader {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #222;
+  color: #fff;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: "Roboto", "PingFang SC", -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif;
+}
+
+.TVChartContainer {
+  height: 570px!important;
+}

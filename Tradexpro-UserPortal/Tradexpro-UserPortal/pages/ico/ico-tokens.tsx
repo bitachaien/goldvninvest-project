@@ -1,0 +1,268 @@
+import type { GetServerSideProps, NextPage } from "next";
+import { SSRAuthCheck } from "middlewares/ssr-authentication-check";
+import useTranslation from "next-translate/useTranslation";
+import Footer from "components/common/footer";
+import { customPage, landingPage } from "service/landing-page";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { GetTokenListAction } from "state/actions/launchpad";
+import Link from "next/link";
+import DataTable from "react-data-table-component";
+import { handleSwapHistorySearch } from "state/actions/reports";
+import { MdCreateNewFolder } from "react-icons/md";
+import { IoCreateOutline } from "react-icons/io5";
+import { AiOutlineOrderedList } from "react-icons/ai";
+import { toast } from "react-toastify";
+import {
+  STATUS_ACCEPTED,
+  STATUS_MODIFICATION,
+  STATUS_PENDING,
+} from "helpers/core-constants";
+import { BsFillChatFill } from "react-icons/bs";
+import CustomDataTable from "components/Datatable";
+import LaunchpadHeader from "components/ico/LaunchpadHeader";
+import PlaceTopLeft from "components/gradient/placeTopLeft";
+import PlaceBottomRight from "components/gradient/placeBottomRight";
+import StartTrending from "components/StartTrending";
+import BottomLeftInnerPageCircle from "components/BottomLeftInnerPageCircle";
+import BottomRigtInnerPageCircle from "components/BottomRigtInnerPageCircle";
+import CustomPagination from "components/Pagination/CustomPagination";
+import ReactDataTable from "components/ReactDataTable";
+import TopLeftInnerPageCircle from "components/TopLeftInnerPageCircle";
+import TopRightInnerPageCircle from "components/TopRightInnerPageCircle";
+import LaunchpadSidebar from "components/ico/LaunchpadSidebar";
+const Profile: NextPage = ({}: any) => {
+  const [history, setHistory] = useState<any>([]);
+  const { t } = useTranslation("common");
+  const [search, setSearch] = useState<any>("");
+  const [processing, setProcessing] = useState<boolean>(false);
+  const [selectedLimit, setSelectedLimit] = useState<any>("10");
+  const [sortingInfo, setSortingInfo] = useState<any>({
+    column_name: "created_at",
+    order_by: "desc",
+  });
+  const [stillHistory, setStillHistory] = useState<any>([]);
+  const columns = [
+    {
+      Header: t("Base Coin"),
+      accessor: "base_coin",
+    },
+    {
+      Header: t("Token Name"),
+      accessor: "token_name",
+    },
+
+    {
+      Header: t("Approved Status"),
+      accessor: "approved_status",
+      Cell: ({ cell }: any) => (
+        <div>
+          {cell.value === STATUS_PENDING ? (
+            <span className="text-warning">{t("Pending")}</span>
+          ) : cell.value === STATUS_ACCEPTED ? (
+            <span className="text-success"> {t("Accepted")}</span>
+          ) : cell.value === STATUS_MODIFICATION ? (
+            <span className="text-warning"> {t("Modification request")}</span>
+          ) : (
+            <span className="text-danger">{t("Rejected")}</span>
+          )}
+        </div>
+      ),
+    },
+    {
+      Header: t("Date"),
+      accessor: "created_at",
+      Cell: ({ cell }: any) => moment(cell.value).format("YYYY-MM-DD HH:mm:ss"),
+    },
+    {
+      Header: t("Wallet Address"),
+      accessor: "wallet_address",
+    },
+    {
+      Header: t("Actions"),
+      Cell: ({ row }: any) => (
+        <div className="blance-text flex flex-row position-relative">
+          {row?.original?.approved_status === 1 ? (
+            <Link href={`/ico/create-edit-phase/${row?.original?.id}`}>
+              <li
+                className="toolTip relative after:!tradex-text-white after:!tradex-right-full after:!tradex-left-auto after:!tradex-bottom-full"
+                title={t("Create Phase")}
+              >
+                <MdCreateNewFolder size={20} />
+              </li>
+            </Link>
+          ) : (
+            <li
+              className="toolTip relative after:!tradex-text-white after:!tradex-right-full after:!tradex-left-auto after:!tradex-bottom-full"
+              title={t("Create Phase")}
+              onClick={() => {
+                toast.warning(
+                  t("Cannot create phase,Please wait for token approval!")
+                );
+              }}
+            >
+              <MdCreateNewFolder size={20} />
+            </li>
+          )}
+          <Link href={`/chat/${row?.original?.id}`}>
+            <li
+              className="toolTip ml-2 relative after:!tradex-text-white after:!tradex-right-full after:!tradex-left-auto after:!tradex-bottom-full"
+              title={t("Chat")}
+            >
+              <BsFillChatFill size={20} />
+            </li>
+          </Link>
+          <Link href={`/ico/create-edit-token/${row?.original?.id}?edit=true`}>
+            <li
+              className="toolTip ml-2 relative after:!tradex-text-white after:!tradex-right-full after:!tradex-left-auto after:!tradex-bottom-full"
+              title={t("Edit token")}
+            >
+              <IoCreateOutline size={20} />
+            </li>
+          </Link>
+          <Link href={`/ico/token-phase-list/${row?.original?.id}`}>
+            <li
+              className="toolTip ml-2 relative after:!tradex-text-white after:!tradex-right-full after:!tradex-left-auto after:!tradex-bottom-full"
+              title={t("Phase List")}
+            >
+              <AiOutlineOrderedList size={20} />
+            </li>
+          </Link>
+        </div>
+      ),
+    },
+  ];
+  const LinkTopaginationString = (page: any) => {
+    const url = page.url.split("?")[1];
+    const number = url.split("=")[1];
+    GetTokenListAction(
+      selectedLimit,
+      parseInt(number),
+      setHistory,
+      setProcessing,
+      setStillHistory,
+      sortingInfo.column_name,
+      sortingInfo.order_by,
+      search
+    );
+  };
+  useEffect(() => {
+    GetTokenListAction(
+      selectedLimit,
+      1,
+      setHistory,
+      setProcessing,
+      setStillHistory,
+      sortingInfo.column_name,
+      sortingInfo.order_by,
+      search
+    );
+  }, [selectedLimit, search]);
+
+  const handlePageClick = (event: any) => {
+    GetTokenListAction(
+      selectedLimit,
+      parseInt(event.selected + 1),
+      setHistory,
+      setProcessing,
+      setStillHistory,
+      sortingInfo.column_name,
+      sortingInfo.order_by,
+      search
+    );
+  };
+
+  return (
+    <>
+      <div className={` tradex-relative`}>
+        <section className="tradex-pt-[50px] tradex-relative">
+          <TopLeftInnerPageCircle />
+          <TopRightInnerPageCircle />
+          <div className=" tradex-container tradex-relative tradex-z-10">
+            <div className=" tradex-grid tradex-grid-cols-1 lg:tradex-grid-cols-12 tradex-gap-6">
+              <div className="lg:tradex-col-span-3">
+                <LaunchpadSidebar />
+              </div>
+              <div className=" lg:tradex-col-span-9">
+                <div className=" tradex-space-y-8">
+                  <div className=" tradex-space-y-4">
+                    <div className="tradex-bg-background-main tradex-rounded-lg tradex-border tradex-border-background-primary tradex-shadow-[2px_2px_23px_0px_#6C6C6C0D] tradex-px-4 tradex-pt-6 tradex-pb-6 tradex-space-y-6">
+                      <h4 className=" tradex-text-[32px] tradex-leading-[38px] md:tradex-text-[40px] md:tradex-leading-[48px] !tradex-text-title tradex-font-bold ">
+                        {t("ICO Token")}
+                      </h4>
+                      <div className=" tradex-flex tradex-flex-col md:tradex-flex-row tradex-justify-between tradex-gap-4 md:tradex-items-center">
+                        <div>
+                          <label className="!tradex-mb-0 tradex-text-base tradex-leading-6 tradex-font-semibold tradex-text-body">
+                            {t("Show")}
+                            <select
+                              className=" md:tradex-ml-4 !tradex-bg-background-main tradex-py-2.5 tradex-px-5 tradex-border !tradex-border-background-primary tradex-rounded tradex-text-sm tradex-leading-5 tradex-text-title"
+                              placeholder="10"
+                              onChange={(e) => {
+                                setSelectedLimit(e.target.value);
+                              }}
+                              value={selectedLimit}
+                            >
+                              <option value="10">10</option>
+                              <option value="25">25</option>
+                              <option value="50">50</option>
+                              <option value="100">100</option>
+                            </select>
+                          </label>
+                        </div>
+                        <div>
+                          <label className=" !tradex-mb-0 tradex-flex tradex-items-center tradex-text-xl tradex-leading-6 tradex-font-semibold tradex-text-body">
+                            <input
+                              type="search"
+                              aria-controls="table"
+                              className=" !tradex-bg-transparent md:tradex-ml-4 tradex-py-2.5 tradex-px-3 tradex-border !tradex-border-background-primary tradex-rounded tradex-text-sm tradex-leading-5"
+                              value={search || ""}
+                              onChange={(e) => setSearch(e.target.value)}
+                              placeholder={t("Search")}
+                            />
+                          </label>
+                        </div>
+                      </div>
+                      <div>
+                        <ReactDataTable
+                          columns={columns}
+                          data={history || []}
+                          processing={processing}
+                          isSearchable={false}
+                          isSortEnable={false}
+                          isOverflow={true}
+                        />
+                      </div>
+                    </div>
+                    {history?.length > 0 && (
+                      <>
+                        <CustomPagination
+                          per_page={stillHistory?.per_page}
+                          current_page={stillHistory?.current_page}
+                          total={stillHistory?.total}
+                          handlePageClick={handlePageClick}
+                        />
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <StartTrending />
+        <BottomLeftInnerPageCircle />
+        <BottomRigtInnerPageCircle />
+      </div>
+
+      <Footer />
+    </>
+  );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
+  await SSRAuthCheck(ctx, "/user/profile");
+  return {
+    props: {},
+  };
+};
+export default Profile;

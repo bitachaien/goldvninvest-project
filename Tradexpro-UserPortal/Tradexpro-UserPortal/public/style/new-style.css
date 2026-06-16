@@ -1,0 +1,271 @@
+.banner_bg1 {
+  background-image: url("https://bestwebcreator.com/cryptocash/demo/assets/images/banner_bg1.png");
+}
+
+.cover-slider-banner .slick-dots {
+  bottom: -40px;
+}
+
+.cover-slider-banner .slick-dots li {
+  width: 42px;
+  height: 6px;
+}
+.cover-slider-banner .slick-dots button {
+  width: 42px;
+  height: 6px;
+}
+
+.cover-slider-banner .slick-dots button::before {
+  width: 42px;
+  height: 6px;
+  content: " ";
+  background: #eaecf0;
+  border-radius: 9999px;
+}
+
+.cover-slider-banner .slick-dots .slick-active button::before {
+  background: rgb(var(--primary-color));
+}
+
+.custom-primary-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff !important;
+  background-color: rgb(var(--primary-color));
+  border-radius: 9999px;
+  transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.market-card-main {
+  padding: 32px 32px 24px;
+  min-width: 378px;
+  min-height: 482px;
+  border: 1px solid rgba(29, 29, 29, 0.08);
+  border-radius: 24px;
+}
+
+.market-card-title {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 130%;
+  gap: 12px;
+  color: rgb(29, 29, 29);
+}
+
+.market-card-title::before {
+  width: 4px;
+  height: 20px;
+  background: rgb(var(--primary-color));
+  border-radius: 1px;
+  content: "";
+}
+
+.market-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.market-card-item {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  gap: 12px;
+  height: 64px;
+}
+
+.market-card-item img {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 28px;
+  object-fit: cover;
+}
+
+.market-card-item-coin {
+  flex: 2 1 0%;
+}
+
+.market-card-item-coin-name {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 130%;
+  color: rgb(29, 29, 29);
+}
+
+.market-card-item-coin-sub-name {
+  font-size: 14px;
+  line-height: 130%;
+  color: rgba(29, 29, 29, 0.3);
+}
+
+.market-card-item-price {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.market-card-item-amount {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 130%;
+  white-space: nowrap;
+  color: rgb(29, 29, 29);
+}
+
+.market-card-item-percentage {
+  margin-top: 2px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 130%;
+  text-align: right;
+  color: rgb(1, 188, 141);
+}
+
+.secure-trend-system-content {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  /* align-items: center; */
+  /* font-weight: 700; */
+  /* font-size: 20px; */
+  line-height: 130%;
+  gap: 12px;
+  color: rgb(29, 29, 29);
+  border-left: 4px solid var(--border-color);
+
+  padding: 16px;
+}
+
+.secure-trend-system-content-active {
+  border-left: 4px solid rgb(var(--primary-color));
+}
+/* 
+.secure-trend-system-content::before {
+  width: 4px;
+  height: 100%;
+  background: rgb(var(--primary-color));
+  border-radius: 1px;
+  content: "";
+} */
+
+.get-in-touch-card {
+  background: linear-gradient(
+    124.06deg,
+    #f9fafb 0%,
+    rgba(249, 250, 251, 0) 99.95%
+  );
+  min-height: 320px;
+  padding: 24px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.get-in-touch-card-icon {
+  height: 48px;
+  width: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  border-radius: 10px;
+  background: #ffffff4d;
+  border: 1px solid #ffffff99;
+  position: relative;
+  z-index: 2;
+}
+
+.get-in-touch-card-icon img {
+  max-width: 48px;
+  max-height: 48px;
+  border-radius: 10px;
+}
+.get-in-touch-card-icon-shadow {
+  height: 48px;
+  width: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  border-radius: 10px;
+  background: rgb(var(--primary-color));
+  position: absolute;
+  top: -6.39px;
+  left: 9px;
+  transform: rotate(15deg);
+  z-index: -1;
+}
+
+.get-in-touch-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.get-in-touch-card-content h2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.trade-anywhere-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.trade-anywhere-icon {
+  width: 96px;
+  height: 96px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-background-color);
+  border-radius: 100%;
+}
+
+.trade-anywhere-main h2 {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+.start-trading-main {
+  background: var(--glass-color-bg-1);
+  border-radius: 24px;
+}
+.start-trading-main-inner {
+  margin: 0 auto;
+  padding: 88px 212px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 24px;
+
+  text-align: center;
+  position: relative;
+
+  background-size: contain;
+  background-position: center;
+}
+
+.get-in-touch-card-content-data {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  line-height: 130%;
+  gap: 12px;
+}
