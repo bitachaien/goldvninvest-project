@@ -6,87 +6,50 @@
         "onecentlin.laravel5-snippets",
         "amiralizadeh9480.laravel-extra-intellisense",
         "ryannaddy.laravel-artisan",
-        "codingyu.laravel-goto-view",
 
         // --- JAVASCRIPT/TYPESCRIPT (UserPortal & NodeWallet) ---
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "ms-vscode.vscode-typescript-next",
 
-        // --- REACT & NEXT.JS ---
+        // --- REACT & NEXT.JS (UserPortal) ---
         "dsznajder.es7-react-js-snippets",
-        "burkeholland.simple-react-snippets",
         "formulahendry.auto-rename-tag",
         "formulahendry.auto-close-tag",
 
         // --- CSS & TAILWIND ---
         "bradlc.vscode-tailwindcss",
-        "stylelint.vscode-stylelint",
 
-        // --- GIT & VERSION CONTROL ---
-        "eamodio.gitlens",
-        "mhutchie.git-graph",
-        "donjayamanne.githistory",
+        // --- NODE.JS (NodeWallet) ---
+        "christian-kohler.npm-intellisense",
 
         // --- DATABASE ---
         "mtxr.sqltools",
         "mtxr.sqltools-driver-mysql",
-        "cweijan.vscode-mysql-client2",
 
         // --- DOCKER & DEVOPS ---
         "ms-azuretools.vscode-docker",
-        "ms-kubernetes-tools.vscode-kubernetes-tools",
 
         // --- CODE QUALITY ---
         "streetsidesoftware.code-spell-checker",
         "usernamehw.errorlens",
-        "wayou.vscode-todo-highlight",
-        "gruntfuggly.todo-tree",
 
         // --- PRODUCTIVITY ---
         "christian-kohler.path-intellisense",
-        "christian-kohler.npm-intellisense",
         "visualstudioexptteam.vscodeintellicode",
-        "visualstudioexptteam.intellicode-api-usage-examples",
-
-        // --- MARKDOWN ---
-        "yzhang.markdown-all-in-one",
-        "davidanson.vscode-markdownlint",
-
-        // --- ICONS & THEMES ---
-        "pkief.material-icon-theme",
-        "zhuangtongfa.material-theme",
-
-        // --- REST API TESTING ---
-        "humao.rest-client",
-        "rangav.vscode-thunder-client",
 
         // --- ENV FILES ---
         "mikestead.dotenv",
-        "irongeek.vscode-env",
 
-        // --- JSON & YAML ---
-        "redhat.vscode-yaml",
-        "tamasfe.even-better-toml",
-
-        // --- UTILITIES ---
-        "editorconfig.editorconfig",
-        "aaron-bond.better-comments",
-        "naumovs.color-highlight",
-        "pranaygp.vscode-css-peek",
-
-        // --- BLOCKCHAIN & WEB3 (NodeWallet) ---
-        "juanblanco.solidity",
-
-        // --- TESTING ---
-        "hbenl.vscode-test-explorer",
-        "recca0120.vscode-phpunit",
-        "orta.vscode-jest"
+        // --- GIT ---
+        "eamodio.gitlens"
     ],
     "unwantedRecommendations": [
         "hookyqr.beautify",
         "ms-vscode.vscode-typescript-tslint-plugin"
-    ]
+    ],
+    "goldvninvest": "linux",
+    "path": "/var/app"
 }
 
 // Made with Bob

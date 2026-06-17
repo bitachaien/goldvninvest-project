@@ -2,6 +2,27 @@
 
 Một nền tảng giao dịch tiền điện tử và forex toàn diện được xây dựng với các công nghệ hiện đại. Dự án này bao gồm ba module chính: admin portal dựa trên Laravel, frontend người dùng Next.js, và dịch vụ ví Node.js.
 
+## 📖 Tài liệu hướng dẫn
+
+- **[QUICK_START.md](QUICK_START.md)** - ⚡ Bắt đầu nhanh trong 15 phút
+- **[SETUP_GUIDE.md](SETUP_GUIDE.md)** - 📚 Hướng dẫn thiết lập chi tiết đầy đủ
+- **[SCRIPTS_README.md](SCRIPTS_README.md)** - 🛠️ Hướng dẫn sử dụng scripts tự động
+- **[CHECKLIST.md](CHECKLIST.md)** - ✅ Danh sách kiểm tra thiết lập
+
+## 🚀 Thiết lập nhanh
+
+### Phương pháp 1: Tự động (Khuyến nghị)
+
+```bash
+cd /var/app
+chmod +x quick-setup.sh && ./quick-setup.sh
+chmod +x start-services.sh && ./start-services.sh
+```
+
+### Phương pháp 2: Thủ công
+
+Xem hướng dẫn chi tiết trong [SETUP_GUIDE.md](SETUP_GUIDE.md)
+
 ## 🏗️ Kiến trúc dự án
 
 ```
