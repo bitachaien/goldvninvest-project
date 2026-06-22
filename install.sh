@@ -8,7 +8,7 @@ USER_PORTAL_MODE="development" # "development" hoặc "production"
 APP_DIR="/var/app"
 DB_ROOT_PASS=$(date +%s | sha256sum | base64 | head -c 16)
 
-# Tự động nhận diện thông tin từ kho lưu trữ Git của bạn
+# Tự động nhận diện thông tin từ kho lưu trữ Git
 REPO_URL="https://github.com/bitachaien/goldvninvest-project.git"
 AUTHOR_NAME=$(echo "$REPO_URL" | awk -F'/' '{print $(NF-1)}')
 PROJECT_NAME=$(echo "$REPO_URL" | awk -F'/' '{print $NF}' | sed 's/\.git//')
@@ -78,43 +78,42 @@ fi
 
 if [ "$GOTO_HEALTH_CHECK" != true ]; then
     # --------------------------------------
-    # BƯỚC 1: TỰ ĐỘNG KHỞI TẠO & PHÂN QUYỀN APP_DIR
+    # BƯỚC 1: TỰ ĐỘNG KHỞI TẠO APP_DIR & DỌN DẸP HỆ THỐNG (AUTOREMOVE)
     # --------------------------------------
     if [ ! -d "$APP_DIR" ]; then
         mkdir -p "$APP_DIR"
         chmod 755 "$APP_DIR"
-        show_progress 1.0 "Thư mục mục tiêu chưa tồn tại, tự động tạo mới phân vùng: $APP_DIR"
-    else
-        show_progress 0.5 "Phát hiện thư mục gốc $APP_DIR đã có sẵn trên hệ thống"
     fi
 
-    # --------------------------------------
-    # BƯỚC 2: DỌN DẸP PORT XUNG ĐỘT
-    # --------------------------------------
-    apt update && apt install -y lsof curl bc > /dev/null 2>&1
+    # Thực thi cập nhật, dọn dẹp toàn bộ các gói package bị cô lập, thừa thãi ngầm
+    apt-get update > /dev/null 2>&1
+    apt-get autoremove -y > /dev/null 2>&1
+    apt-get clean > /dev/null 2>&1
+    apt-get install -y lsof curl bc > /dev/null 2>&1
+
     kill_port_obstacle 3000
     kill_port_obstacle 8000
     kill_port_obstacle 8080
     kill_port_obstacle 8934
-    show_progress 1.0 "Quét và ép giải phóng các cổng mạng cản trở (3000, 8000, 8080, 8934)"
+    show_progress 1.5 "Tạo thư mục gốc, giải phóng Port xung đột & quét sạch gói thừa (apt autoremove)"
 
     # --------------------------------------
-    # BƯỚC 3: CÀI ĐẶT DEPENDENCIES
+    # BƯỚC 2: CÀI ĐẶT DEPENDENCIES
     # --------------------------------------
     echo -e "${YELLOW}[!] Đang cài đặt ngầm môi trường core...${NC}"
-    apt install -y software-properties-common > /dev/null 2>&1
+    apt-get install -y software-properties-common > /dev/null 2>&1
     add-apt-repository ppa:ondrej/php -y > /dev/null 2>&1
-    apt update > /dev/null 2>&1
-    apt install -y php8.0 php8.0-cli php8.0-fpm php8.0-mysql php8.0-xml php8.0-mbstring php8.0-curl php8.0-zip php8.0-bcmath php8.0-tokenizer mysql-server git unzip ufw > /dev/null 2>&1
+    apt-get update > /dev/null 2>&1
+    apt-get install -y php8.0 php8.0-cli php8.0-fpm php8.0-mysql php8.0-xml php8.0-mbstring php8.0-curl php8.0-zip php8.0-bcmath php8.0-tokenizer mysql-server git unzip ufw > /dev/null 2>&1
 
     curl -sS https://getcomposer.org/installer | php > /dev/null 2>&1
     mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
     curl -fsSL https://deb.nodesource.com/setup_18.x | bash - > /dev/null 2>&1
-    apt install -y nodejs > /dev/null 2>&1 && npm install -g pm2 > /dev/null 2>&1
+    apt-get install -y nodejs > /dev/null 2>&1 && npm install -g pm2 > /dev/null 2>&1
     show_progress 3.0 "Cài đặt môi trường cốt lõi (PHP 8.0, Composer, Node v18, PM2, MySQL)"
 
     # --------------------------------------
-    # BƯỚC 4: CẤU HÌNH DATABASE
+    # BƯỚC 3: CẤU HÌNH DATABASE
     # --------------------------------------
     systemctl start mysql && systemctl enable mysql
     mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${DB_ROOT_PASS}';" || DB_ROOT_PASS="DETECTED_ALREADY_SET"
@@ -123,7 +122,7 @@ if [ "$GOTO_HEALTH_CHECK" != true ]; then
     show_progress 1.5 "Khởi tạo hệ quản trị cơ sở dữ liệu MySQL & Databases dự án"
 
     # --------------------------------------
-    # BƯỚC 5: TẢI CODE & PHÂN VÙNG PHMYADMIN
+    # BƯỚC 4: TẢI CODE & PHÂN VÙNG PHMYADMIN
     # --------------------------------------
     cd "$APP_DIR"
     if [ -d ".git" ]; then
@@ -137,10 +136,10 @@ if [ "$GOTO_HEALTH_CHECK" != true ]; then
     unzip phpmyadmin.zip > /dev/null 2>&1
     mv phpMyAdmin-5.2.1-all-languages/* . && rm -rf phpMyAdmin-5.2.1-all-languages phpmyadmin.zip
     cp config.sample.inc.js config.inc.js || true
-    show_progress 2.5 "Đồng bộ source code sàn từ Git & Tải thư viện phpMyAdmin từ xa"
+    show_progress 2.5 "Đồng bộ source code từ Git & Tải thư viện phpMyAdmin từ xa"
 
     # --------------------------------------
-    # BƯỚC 6: GHI ĐÈ CẤU HÌNH .ENV TOÀN DIỆN
+    # BƯỚC 5: GHI ĐÈ CẤU HÌNH .ENV TOÀN DIỆN
     # --------------------------------------
     # Backend Laravel
     cd "$APP_DIR/Tradexpro-AdminPortal"
@@ -167,7 +166,7 @@ if [ "$GOTO_HEALTH_CHECK" != true ]; then
     show_progress 3.0 "Tự động thiết lập, điền thông tin hợp lệ vào tệp tin hệ thống .env"
 
     # --------------------------------------
-    # BƯỚC 7: KHỞI CHẠY PM2 & MỞ TƯỜNG LỬA
+    # BƯỚC 6: KHỞI CHẠY PM2 & MỞ TƯỜNG LỬA
     # --------------------------------------
     pm2 delete all 2>/dev/null || true
     pm2 start "php artisan serve --host=127.0.0.1 --port=8000" --name "admin-portal" --cwd "$APP_DIR/Tradexpro-AdminPortal" > /dev/null 2>&1
@@ -241,6 +240,6 @@ echo -e "    • ${BOLD}URL đăng nhập :${NC} ${GREEN}http://${VPS_IP}:8080${
 echo -e "    • ${BOLD}User kết nối  :${NC} root"
 echo -e "    • ${BOLD}Mật khẩu (Pass):${NC} ${RED}${DB_ROOT_PASS}${NC}"
 echo -e " ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo -e "\n${GREEN}Chúc mừng bạn! Dự án [${PROJECT_NAME}] của tác giả [${AUTHOR_NAME}] đã online hoàn toàn tự động!${NC}\n"
+echo -e "\n${GREEN}Chúc mừng bạn! Dự án [${PROJECT_NAME}] của tác giả [${AUTHOR_NAME}] đã online sạch sẽ và hoàn hảo!${NC}\n"
 
 pm2 status
